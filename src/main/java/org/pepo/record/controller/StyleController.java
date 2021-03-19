@@ -6,6 +6,7 @@ import org.pepo.record.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ public class StyleController {
     @Autowired
     private StyleService styleService;
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping(path="/all")
     public ResponseEntity<Iterable<StyleDto>> getAllArtists() {
         return ResponseUtils.createResponse(styleService.findAll(), HttpStatus.OK);
