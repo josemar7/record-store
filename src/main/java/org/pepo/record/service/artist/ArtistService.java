@@ -11,7 +11,7 @@ public interface ArtistService {
 
     ArtistDto findByIdSecured(int id);
 
-    Artist save(Artist artist);
+    ArtistDto save(Artist artist);
 
     void delete(int id);
 

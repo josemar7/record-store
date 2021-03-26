@@ -41,8 +41,8 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public Artist save(Artist artist) {
-        return artistRepository.save(artist);
+    public ArtistDto save(Artist artist) {
+        return artistEntityDtoMapper.entityToDto(artistRepository.save(artist));
     }
 
     @Override

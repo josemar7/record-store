@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.pepo.record.dto.ArtistDto;
 import org.pepo.record.entity.Artist;
@@ -35,7 +36,7 @@ class ArtistServiceTest {
     @Test
     void findAll() {
         when(artistRepository.findAll()).thenReturn(new ArrayList<>());
-        when(artistEntityDtoMapper.entityToDto(ArgumentMatchers.any(Artist.class))).thenReturn(ArtistDto.builder().build());
+        when(artistEntityDtoMapper.entityToDto(Mockito.any(Artist.class))).thenReturn(ArtistDto.builder().build());
         Iterable<ArtistDto> artistDtos = artistService.findAll();
         verify(artistRepository, times(1)).findAll();
         assertNotNull(artistDtos);
@@ -44,7 +45,9 @@ class ArtistServiceTest {
     @Test
     void save() {
         when(artistRepository.save(ArgumentMatchers.any(Artist.class))).thenReturn(new Artist());
-        Artist artist = artistService.save(new Artist());
+        when(artistEntityDtoMapper.entityToDto(Mockito.any(Artist.class))).thenReturn(ArtistDto.builder().build());
+        ArtistDto artist = artistService.save(new Artist());
+        verify(artistEntityDtoMapper, times(1)).entityToDto(Mockito.any(Artist.class));
         verify(artistRepository, times(1)).save(ArgumentMatchers.any(Artist.class));
         assertNotNull(artist);
     }

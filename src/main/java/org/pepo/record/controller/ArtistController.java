@@ -38,7 +38,7 @@ public class ArtistController {
     }
 
     @PostMapping(path = "/new")
-    public ResponseEntity<Artist> newArtist(@RequestBody Artist newArtist) {
+    public ResponseEntity<ArtistDto> newArtist(@RequestBody Artist newArtist) {
         return ResponseUtils.createResponse(artistService.save(newArtist), HttpStatus.OK);
     }
 
