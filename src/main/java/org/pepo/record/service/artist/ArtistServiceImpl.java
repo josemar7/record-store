@@ -30,23 +30,29 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public ArtistDto findById(int id) {
+    public ArtistDto findById(final int id) {
         Artist artist = artistRepository.findById(id).orElse(null);
         return artistEntityDtoMapper.entityToDto(artist);
     }
 
     @Override
-    public ArtistDto findByIdSecured(int id) {
+    public ArtistDto findByIdSecured(final int id) {
         return artistEntityDtoMapper.entityToDto(artistRepository.findByIdSecured(id));
     }
 
     @Override
-    public ArtistDto save(Artist artist) {
+    public ArtistDto save(final Artist artist) {
         return artistEntityDtoMapper.entityToDto(artistRepository.save(artist));
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(final int id) {
         artistRepository.deleteById(id);
+    }
+
+    @Override
+    public ArtistDto update(final Artist artist, final int artistId) {
+        artist.setId(artistId);
+        return artistEntityDtoMapper.entityToDto(artistRepository.save(artist));
     }
 }

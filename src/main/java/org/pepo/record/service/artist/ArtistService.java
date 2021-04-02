@@ -13,6 +13,8 @@ public interface ArtistService {
 
     ArtistDto save(Artist artist);
 
+    ArtistDto update(Artist artist, int artistId);
+
     void delete(int id);
 
 }
