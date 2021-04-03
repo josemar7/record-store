@@ -29,4 +29,8 @@ public class StyleServiceImpl implements StyleService {
         return list;
     }
 
+    @Override
+    public StyleDto save(Style style) {
+        return styleEntityDtoMapper.entityToDto(styleRepository.save(style));
+    }
 }
