@@ -29,4 +29,8 @@ public class NationalityServiceImpl implements NationalityService {
         return list;
     }
 
+    @Override
+    public NationalityDto save(final Nationality nationality) {
+        return nationalityEntityDtoMapper.entityToDto(nationalityRepository.save(nationality));
+    }
 }
