@@ -25,12 +25,12 @@ public class FormatServiceImpl implements FormatService {
     public Iterable<FormatResponseOpenApi> findAll() {
         List<FormatResponseOpenApi> list = new ArrayList<>();
         Iterable<Format> formatIterable = formatRepository.findAll();
-        formatIterable.forEach(format -> list.add(formatEntityOpenApiMapper.entityToOpenApi(format)));
+        formatIterable.forEach(format -> list.add(formatEntityOpenApiMapper.formatToFormatResponseOpenApi(format)));
         return list;
     }
 
     @Override
     public FormatResponseOpenApi save(Format format) {
-        return formatEntityOpenApiMapper.entityToOpenApi(formatRepository.save(format));
+        return formatEntityOpenApiMapper.formatToFormatResponseOpenApi(formatRepository.save(format));
     }
 }

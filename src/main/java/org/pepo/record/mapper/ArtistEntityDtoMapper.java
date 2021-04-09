@@ -5,9 +5,9 @@ import org.pepo.record.dto.ArtistDto;
 import org.pepo.record.entity.Artist;
 
 @Mapper(componentModel = "spring")
-abstract public class ArtistEntityDtoMapper {
+public class ArtistEntityDtoMapper {
 
-    public ArtistDto entityToDto(Artist artist) {
+    public ArtistDto artistToArtistDto(Artist artist) {
         return ArtistDto.builder()
                 .id(artist.getId())
                 .name(artist.getName())

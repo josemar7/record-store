@@ -24,7 +24,7 @@ class NationalityEntityDtoMapperTest {
         Nationality nationality = new Nationality();
         nationality.setName("name");
         nationality.setId(1);
-        NationalityDto nationalityDto = mapper.entityToDto(nationality);
+        NationalityDto nationalityDto = mapper.nationalityToNationalityDto(nationality);
         assertEquals(nationality.getName(), nationalityDto.getName());
     }
 }

@@ -20,10 +20,10 @@ class ArtistEntityDtoMapperTest {
     }
 
     @Test
-    void entityToDto() {
+    void artistToArtistDto() {
         Artist artist = new Artist();
         artist.setName("name");
-        ArtistDto artistDto = mapper.entityToDto(artist);
+        ArtistDto artistDto = mapper.artistToArtistDto(artist);
         assertEquals(artist.getName(), artistDto.getName());
     }
 }

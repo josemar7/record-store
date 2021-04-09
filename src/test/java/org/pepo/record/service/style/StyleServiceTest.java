@@ -35,7 +35,7 @@ class StyleServiceTest {
     @Test
     void findAll() {
         when(styleRepository.findAll()).thenReturn(new ArrayList<>());
-        when(styleEntityDtoMapper.entityToDto(ArgumentMatchers.any(Style.class))).thenReturn(StyleDto.builder().build());
+        when(styleEntityDtoMapper.styleToStyleDto(ArgumentMatchers.any(Style.class))).thenReturn(StyleDto.builder().build());
         Iterable<StyleDto> styleDtos = styleService.findAll();
         verify(styleRepository, times(1)).findAll();
         assertNotNull(styleDtos);

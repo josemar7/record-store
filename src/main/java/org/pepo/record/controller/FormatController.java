@@ -31,6 +31,6 @@ public class FormatController implements FormatApi {
 
     @Override
     public ResponseEntity<FormatResponseOpenApi> newFormat(final FormatResponseOpenApi formatResponseOpenApi) {
-        return ResponseEntity.ok(formatService.save(formatEntityOpenApiMapper.openApiToEntity(formatResponseOpenApi)));
+        return ResponseEntity.ok(formatService.save(formatEntityOpenApiMapper.formatResponseOpenApiToFormat(formatResponseOpenApi)));
     }
 }

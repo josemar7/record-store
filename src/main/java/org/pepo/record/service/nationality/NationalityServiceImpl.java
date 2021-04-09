@@ -25,12 +25,12 @@ public class NationalityServiceImpl implements NationalityService {
     public Iterable<NationalityDto> findAll() {
         List<NationalityDto> list = new ArrayList<>();
         Iterable<Nationality> nationalityIterable = nationalityRepository.findAll();
-        nationalityIterable.forEach(nationality -> list.add(nationalityEntityDtoMapper.entityToDto(nationality)));
+        nationalityIterable.forEach(nationality -> list.add(nationalityEntityDtoMapper.nationalityToNationalityDto(nationality)));
         return list;
     }
 
     @Override
     public NationalityDto save(final Nationality nationality) {
-        return nationalityEntityDtoMapper.entityToDto(nationalityRepository.save(nationality));
+        return nationalityEntityDtoMapper.nationalityToNationalityDto(nationalityRepository.save(nationality));
     }
 }

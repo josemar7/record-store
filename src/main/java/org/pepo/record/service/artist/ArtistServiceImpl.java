@@ -25,24 +25,24 @@ public class ArtistServiceImpl implements ArtistService {
     public Iterable<ArtistDto> findAll() {
         List<ArtistDto> list = new ArrayList<>();
         Iterable<Artist> artistIterable = artistRepository.findAll();
-        artistIterable.forEach(artist -> list.add(artistEntityDtoMapper.entityToDto(artist)));
+        artistIterable.forEach(artist -> list.add(artistEntityDtoMapper.artistToArtistDto(artist)));
         return list;
     }
 
     @Override
     public ArtistDto findById(final int id) {
         Artist artist = artistRepository.findById(id).orElse(null);
-        return artistEntityDtoMapper.entityToDto(artist);
+        return artistEntityDtoMapper.artistToArtistDto(artist);
     }
 
     @Override
     public ArtistDto findByIdSecured(final int id) {
-        return artistEntityDtoMapper.entityToDto(artistRepository.findByIdSecured(id));
+        return artistEntityDtoMapper.artistToArtistDto(artistRepository.findByIdSecured(id));
     }
 
     @Override
     public ArtistDto save(final Artist artist) {
-        return artistEntityDtoMapper.entityToDto(artistRepository.save(artist));
+        return artistEntityDtoMapper.artistToArtistDto(artistRepository.save(artist));
     }
 
     @Override
@@ -53,6 +53,6 @@ public class ArtistServiceImpl implements ArtistService {
     @Override
     public ArtistDto update(final Artist artist, final int artistId) {
         artist.setId(artistId);
-        return artistEntityDtoMapper.entityToDto(artistRepository.save(artist));
+        return artistEntityDtoMapper.artistToArtistDto(artistRepository.save(artist));
     }
 }

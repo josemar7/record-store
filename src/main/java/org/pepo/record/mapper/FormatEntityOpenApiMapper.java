@@ -5,19 +5,9 @@ import org.pepo.record.SwaggerCodgen.model.FormatResponseOpenApi;
 import org.pepo.record.entity.Format;
 
 @Mapper(componentModel = "spring")
-public class FormatEntityOpenApiMapper {
+public interface FormatEntityOpenApiMapper {
 
-    public FormatResponseOpenApi entityToOpenApi(final Format format) {
-        final FormatResponseOpenApi formatResponseOpenApi = new FormatResponseOpenApi();
-        formatResponseOpenApi.setId(format.getId());
-        formatResponseOpenApi.setName(format.getName());
-        return formatResponseOpenApi;
-    }
+    FormatResponseOpenApi formatToFormatResponseOpenApi(Format format);
 
-    public Format openApiToEntity(final FormatResponseOpenApi formatResponseOpenApi) {
-        final Format format = new Format();
-        format.setId(formatResponseOpenApi.getId());
-        format.setName(formatResponseOpenApi.getName());
-        return format;
-    }
+    Format formatResponseOpenApiToFormat(FormatResponseOpenApi formatResponseOpenApi);
 }

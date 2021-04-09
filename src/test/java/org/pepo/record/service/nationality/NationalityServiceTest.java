@@ -35,7 +35,7 @@ class NationalityServiceTest {
     @Test
     void findAll() {
         when(nationalityRepository.findAll()).thenReturn(new ArrayList<>());
-        when(nationalityEntityDtoMapper.entityToDto(ArgumentMatchers.any(Nationality.class))).thenReturn(NationalityDto.builder().build());
+        when(nationalityEntityDtoMapper.nationalityToNationalityDto(ArgumentMatchers.any(Nationality.class))).thenReturn(NationalityDto.builder().build());
         Iterable<NationalityDto> nationalityDtos = nationalityService.findAll();
         verify(nationalityRepository, times(1)).findAll();
         assertNotNull(nationalityDtos);

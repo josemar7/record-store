@@ -24,7 +24,7 @@ class StyleEntityDtoMapperTest {
         Style style = new Style();
         style.setName("name");
         style.setId(1);
-        StyleDto styleDto = mapper.entityToDto(style);
+        StyleDto styleDto = mapper.styleToStyleDto(style);
         assertEquals(style.getName(), styleDto.getName());
     }
 }

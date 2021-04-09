@@ -5,13 +5,8 @@ import org.pepo.record.dto.StyleDto;
 import org.pepo.record.entity.Style;
 
 @Mapper(componentModel = "spring")
-abstract public class StyleEntityDtoMapper {
+public interface StyleEntityDtoMapper {
 
-    public StyleDto entityToDto(Style style) {
-        return StyleDto.builder()
-                .id(style.getId())
-                .name(style.getName())
-                .build();
-    }
+    StyleDto styleToStyleDto(Style style);
 
 }

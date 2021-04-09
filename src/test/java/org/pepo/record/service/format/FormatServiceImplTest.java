@@ -36,7 +36,7 @@ class FormatServiceImplTest {
     @Test
     void findAll() {
         when(formatRepository.findAll()).thenReturn(new ArrayList<>());
-        when(formatEntityOpenApiMapper.entityToOpenApi(ArgumentMatchers.any(Format.class))).thenReturn(new FormatResponseOpenApi());
+        when(formatEntityOpenApiMapper.formatToFormatResponseOpenApi(ArgumentMatchers.any(Format.class))).thenReturn(new FormatResponseOpenApi());
         Iterable<FormatResponseOpenApi> formatResponseOpenApiIterable = formatService.findAll();
         verify(formatRepository, times(1)).findAll();
         assertNotNull(formatResponseOpenApiIterable);
@@ -45,9 +45,9 @@ class FormatServiceImplTest {
     @Test
     void save() {
         when(formatRepository.save(ArgumentMatchers.any(Format.class))).thenReturn(new Format());
-        when(formatEntityOpenApiMapper.entityToOpenApi(Mockito.any(Format.class))).thenReturn(new FormatResponseOpenApi());
+        when(formatEntityOpenApiMapper.formatToFormatResponseOpenApi(Mockito.any(Format.class))).thenReturn(new FormatResponseOpenApi());
         FormatResponseOpenApi formatResponseOpenApi = formatService.save(new Format());
-        verify(formatEntityOpenApiMapper, times(1)).entityToOpenApi(Mockito.any(Format.class));
+        verify(formatEntityOpenApiMapper, times(1)).formatToFormatResponseOpenApi(Mockito.any(Format.class));
         verify(formatRepository, times(1)).save(ArgumentMatchers.any(Format.class));
         assertNotNull(formatResponseOpenApi);
     }

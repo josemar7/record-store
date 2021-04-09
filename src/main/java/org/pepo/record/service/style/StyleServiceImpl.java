@@ -25,12 +25,12 @@ public class StyleServiceImpl implements StyleService {
     public Iterable<StyleDto> findAll() {
         List<StyleDto> list = new ArrayList<>();
         Iterable<Style> styleIterable = styleRepository.findAll();
-        styleIterable.forEach(style -> list.add(styleEntityDtoMapper.entityToDto(style)));
+        styleIterable.forEach(style -> list.add(styleEntityDtoMapper.styleToStyleDto(style)));
         return list;
     }
 
     @Override
     public StyleDto save(Style style) {
-        return styleEntityDtoMapper.entityToDto(styleRepository.save(style));
+        return styleEntityDtoMapper.styleToStyleDto(styleRepository.save(style));
     }
 }

@@ -5,13 +5,7 @@ import org.pepo.record.dto.NationalityDto;
 import org.pepo.record.entity.Nationality;
 
 @Mapper(componentModel = "spring")
-abstract public class NationalityEntityDtoMapper {
+public interface NationalityEntityDtoMapper {
 
-    public NationalityDto entityToDto(Nationality nationality) {
-        return NationalityDto.builder()
-                .id(nationality.getId())
-                .name(nationality.getName())
-                .build();
-    }
-
+    NationalityDto nationalityToNationalityDto(Nationality nationality);
 }
