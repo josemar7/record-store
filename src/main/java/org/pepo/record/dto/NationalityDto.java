@@ -1,6 +1,10 @@
 package org.pepo.record.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.pepo.record.commons.BaseVO;
 
 @AllArgsConstructor

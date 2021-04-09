@@ -6,6 +6,37 @@ info:
 servers:
 - url: /v2
 paths:
+  /format/all:
+    get:
+      summary: get formats
+      operationId: getAllFormats
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FormatResponseOpenApi'
+  /format/new:
+    post:
+      summary: add new format
+      operationId: newFormat
+      requestBody:
+        description: format to be added
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FormatResponseOpenApi'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormatResponseOpenApi'
   /book:
     get:
       summary: Get Books
@@ -39,6 +70,13 @@ paths:
       x-codegen-request-body-name: book
 components:
   schemas:
+    FormatResponseOpenApi:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
     Book:
       type: object
       properties:
