@@ -6,6 +6,19 @@ info:
 servers:
 - url: /v2
 paths:
+  /record/all:
+    get:
+      summary: get all records
+      operationId: getAllRecords
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecordResponseOpenApi'
   /format/all:
     get:
       summary: get formats
@@ -70,6 +83,19 @@ paths:
       x-codegen-request-body-name: book
 components:
   schemas:
+    RecordResponseOpenApi:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        image:
+          type: string
+        format:
+          $ref: '#/components/schemas/FormatResponseOpenApi'
+        units:
+          type: integer
     FormatResponseOpenApi:
       type: object
       properties:
