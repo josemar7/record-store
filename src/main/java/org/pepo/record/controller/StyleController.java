@@ -1,32 +1,36 @@
 package org.pepo.record.controller;
 
-import org.pepo.record.dto.StyleDto;
-import org.pepo.record.entity.Style;
+import org.pepo.record.SwaggerCodgen.api.StyleApi;
+import org.pepo.record.SwaggerCodgen.model.StyleResponseOpenApi;
+import org.pepo.record.mapper.StyleEntityOpenApiMapper;
 import org.pepo.record.service.style.StyleService;
-import org.pepo.record.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 @RestController
-@RequestMapping(path = "/style")
-public class StyleController {
+public class StyleController implements StyleApi {
 
     @Autowired
     private StyleService styleService;
 
-    @GetMapping(path="/all")
-    public ResponseEntity<Iterable<StyleDto>> getAllArtists() {
-        return ResponseUtils.createResponse(styleService.findAll(), HttpStatus.OK);
+    @Autowired
+    private StyleEntityOpenApiMapper styleEntityOpenApiMapper;
+
+    @Override
+    public ResponseEntity<List<StyleResponseOpenApi>> getAllStyles() {
+        List<StyleResponseOpenApi> result =
+                StreamSupport.stream(styleService.findAll().spliterator(), false)
+                        .collect(Collectors.toList());
+        return ResponseEntity.ok(result);
     }
 
-    @PostMapping(path = "/new")
-    public ResponseEntity<StyleDto> newArtist(@RequestBody Style newStyle) {
-        return ResponseUtils.createResponse(styleService.save(newStyle), HttpStatus.OK);
+    @Override
+    public ResponseEntity<StyleResponseOpenApi> newStyle(StyleResponseOpenApi styleResponseOpenApi) {
+        return ResponseEntity.ok(styleService.save(styleEntityOpenApiMapper.styleResponseOpenApiToStyle(styleResponseOpenApi)));
     }
 }

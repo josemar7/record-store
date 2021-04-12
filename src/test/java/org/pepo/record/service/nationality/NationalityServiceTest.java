@@ -6,14 +6,14 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.pepo.record.dto.NationalityDto;
+import org.pepo.record.SwaggerCodgen.model.NationalityResponseOpenApi;
 import org.pepo.record.entity.Nationality;
-import org.pepo.record.mapper.NationalityEntityDtoMapper;
+import org.pepo.record.mapper.NationalityEntityOpenApiMapper;
 import org.pepo.record.repository.NationalityRepository;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 class NationalityServiceTest {
@@ -25,7 +25,7 @@ class NationalityServiceTest {
     NationalityRepository nationalityRepository;
 
     @Mock
-    NationalityEntityDtoMapper nationalityEntityDtoMapper;
+    NationalityEntityOpenApiMapper nationalityEntityOpenApiMapper;
 
     @BeforeEach
     void setUp() {
@@ -35,10 +35,9 @@ class NationalityServiceTest {
     @Test
     void findAll() {
         when(nationalityRepository.findAll()).thenReturn(new ArrayList<>());
-        when(nationalityEntityDtoMapper.nationalityToNationalityDto(ArgumentMatchers.any(Nationality.class))).thenReturn(NationalityDto.builder().build());
-        Iterable<NationalityDto> nationalityDtos = nationalityService.findAll();
+        when(nationalityEntityOpenApiMapper.nationalityToNationalityResponseOpenApi(ArgumentMatchers.any(Nationality.class))).thenReturn(new NationalityResponseOpenApi());
+        Iterable<NationalityResponseOpenApi> nationalityDtos = nationalityService.findAll();
         verify(nationalityRepository, times(1)).findAll();
         assertNotNull(nationalityDtos);
     }
-
 }

@@ -1,19 +1,19 @@
 package org.pepo.record.service.artist;
 
-import org.pepo.record.dto.ArtistDto;
+import org.pepo.record.SwaggerCodgen.model.ArtistResponseOpenApi;
 import org.pepo.record.entity.Artist;
 
 public interface ArtistService {
 
-    Iterable<ArtistDto> findAll();
+    Iterable<ArtistResponseOpenApi> findAll();
 
-    ArtistDto findById(int id);
+    ArtistResponseOpenApi findById(int id);
 
-    ArtistDto findByIdSecured(int id);
+    ArtistResponseOpenApi findByIdSecured(int id);
 
-    ArtistDto save(Artist artist);
+    ArtistResponseOpenApi save(Artist artist);
 
-    ArtistDto update(Artist artist, int artistId);
+    ArtistResponseOpenApi update(Artist artist, int artistId);
 
     void delete(int id);
 

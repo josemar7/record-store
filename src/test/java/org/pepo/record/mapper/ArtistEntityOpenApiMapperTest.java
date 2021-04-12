@@ -4,18 +4,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import org.mockito.MockitoAnnotations;
-import org.pepo.record.dto.ArtistDto;
+import org.pepo.record.SwaggerCodgen.model.ArtistResponseOpenApi;
 import org.pepo.record.entity.Artist;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ArtistEntityDtoMapperTest {
+class ArtistEntityOpenApiMapperTest {
 
-    private ArtistEntityDtoMapper mapper;
+    private ArtistEntityOpenApiMapper mapper;
 
     @BeforeEach
     void setUp() {
-        mapper = Mappers.getMapper(ArtistEntityDtoMapper.class);
+        mapper = Mappers.getMapper(ArtistEntityOpenApiMapper.class);
         MockitoAnnotations.initMocks(this);
     }
 
@@ -23,7 +23,7 @@ class ArtistEntityDtoMapperTest {
     void artistToArtistDto() {
         Artist artist = new Artist();
         artist.setName("name");
-        ArtistDto artistDto = mapper.artistToArtistDto(artist);
-        assertEquals(artist.getName(), artistDto.getName());
+        ArtistResponseOpenApi artistResponseOpenApi = mapper.artistToArtistResponseOpenApi(artist);
+        assertEquals(artist.getName(), artistResponseOpenApi.getName());
     }
 }

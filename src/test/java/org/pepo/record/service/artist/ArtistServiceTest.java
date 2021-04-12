@@ -7,9 +7,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.pepo.record.dto.ArtistDto;
+import org.pepo.record.SwaggerCodgen.model.ArtistResponseOpenApi;
 import org.pepo.record.entity.Artist;
-import org.pepo.record.mapper.ArtistEntityDtoMapper;
+import org.pepo.record.mapper.ArtistEntityOpenApiMapper;
 import org.pepo.record.repository.ArtistRepository;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ class ArtistServiceTest {
     ArtistRepository artistRepository;
 
     @Mock
-    ArtistEntityDtoMapper artistEntityDtoMapper;
+    ArtistEntityOpenApiMapper artistEntityOpenApiMapper;
 
     @BeforeEach
     void setUp() {
@@ -36,19 +36,19 @@ class ArtistServiceTest {
     @Test
     void findAll() {
         when(artistRepository.findAll()).thenReturn(new ArrayList<>());
-        when(artistEntityDtoMapper.artistToArtistDto(Mockito.any(Artist.class))).thenReturn(ArtistDto.builder().build());
-        Iterable<ArtistDto> artistDtos = artistService.findAll();
+        when(artistEntityOpenApiMapper.artistToArtistResponseOpenApi(Mockito.any(Artist.class))).thenReturn(new ArtistResponseOpenApi());
+        Iterable<ArtistResponseOpenApi> artistResponseOpenApiIterable = artistService.findAll();
         verify(artistRepository, times(1)).findAll();
-        assertNotNull(artistDtos);
+        assertNotNull(artistResponseOpenApiIterable);
     }
 
     @Test
     void save() {
         when(artistRepository.save(ArgumentMatchers.any(Artist.class))).thenReturn(new Artist());
-        when(artistEntityDtoMapper.artistToArtistDto(Mockito.any(Artist.class))).thenReturn(ArtistDto.builder().build());
-        ArtistDto artist = artistService.save(new Artist());
-        verify(artistEntityDtoMapper, times(1)).artistToArtistDto(Mockito.any(Artist.class));
+        when(artistEntityOpenApiMapper.artistToArtistResponseOpenApi(Mockito.any(Artist.class))).thenReturn(new ArtistResponseOpenApi());
+        ArtistResponseOpenApi artistResponseOpenApi = artistService.save(new Artist());
+        verify(artistEntityOpenApiMapper, times(1)).artistToArtistResponseOpenApi(Mockito.any(Artist.class));
         verify(artistRepository, times(1)).save(ArgumentMatchers.any(Artist.class));
-        assertNotNull(artist);
+        assertNotNull(artistResponseOpenApi);
     }
 }

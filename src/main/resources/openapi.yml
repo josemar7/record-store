@@ -6,6 +6,154 @@ info:
 servers:
 - url: /v2
 paths:
+  /artist/all:
+    get:
+      summary: get all artists
+      operationId: getAllArtists
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ArtistResponseOpenApi'
+  /artist/{artistId}:
+    get:
+      summary: get artist by id
+      operationId: getArtistById
+      parameters:
+        - in: path
+          name: artistId
+          schema:
+            type: integer
+          required: true
+          description: artist id
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtistResponseOpenApi'
+    delete:
+      summary: delete artist by id
+      operationId: deleteArtistById
+      parameters:
+        - in: path
+          name: artistId
+          schema:
+            type: integer
+          required: true
+          description: artist id
+      responses:
+        204:
+          description: artist was deleted
+    put:
+      summary: update artist by id
+      operationId: updateArtistById
+      parameters:
+        - in: path
+          name: artistId
+          schema:
+            type: integer
+          required: true
+          description: artist id
+      requestBody:
+        description: artist to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArtistResponseOpenApi'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtistResponseOpenApi'
+  /artist/new:
+    post:
+      summary: add new artist
+      operationId: newArtist
+      requestBody:
+        description: artist to be added
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArtistResponseOpenApi'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtistResponseOpenApi'
+  /nationality/all:
+    get:
+      summary: get all nationalities
+      operationId: getAllNationalities
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NationalityResponseOpenApi'
+  /nationality/new:
+    post:
+      summary: add new nationality
+      operationId: newNationality
+      requestBody:
+        description: nationality to be added
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NationalityResponseOpenApi'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NationalityResponseOpenApi'
+  /style/all:
+    get:
+      summary: get all styles
+      operationId: getAllStyles
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StyleResponseOpenApi'
+  /style/new:
+    post:
+      summary: add new style
+      operationId: newStyle
+      requestBody:
+        description: style to be added
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StyleResponseOpenApi'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StyleResponseOpenApi'
   /record/all:
     get:
       summary: get all records
@@ -103,6 +251,31 @@ components:
           type: integer
         name:
           type: string
+    StyleResponseOpenApi:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    NationalityResponseOpenApi:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    ArtistResponseOpenApi:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        nationality:
+          $ref: '#/components/schemas/NationalityResponseOpenApi'
+        style:
+          $ref: '#/components/schemas/StyleResponseOpenApi'
     Book:
       type: object
       properties:

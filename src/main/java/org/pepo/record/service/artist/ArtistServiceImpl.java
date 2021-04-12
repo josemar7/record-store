@@ -1,9 +1,9 @@
 package org.pepo.record.service.artist;
 
 import lombok.AllArgsConstructor;
-import org.pepo.record.dto.ArtistDto;
+import org.pepo.record.SwaggerCodgen.model.ArtistResponseOpenApi;
 import org.pepo.record.entity.Artist;
-import org.pepo.record.mapper.ArtistEntityDtoMapper;
+import org.pepo.record.mapper.ArtistEntityOpenApiMapper;
 import org.pepo.record.repository.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,33 +16,33 @@ import java.util.List;
 public class ArtistServiceImpl implements ArtistService {
 
     @Autowired
-    private final ArtistEntityDtoMapper artistEntityDtoMapper;
+    private final ArtistEntityOpenApiMapper artistEntityOpenApiMapper;
 
     @Autowired
     private final ArtistRepository artistRepository;
 
     @Override
-    public Iterable<ArtistDto> findAll() {
-        List<ArtistDto> list = new ArrayList<>();
+    public Iterable<ArtistResponseOpenApi> findAll() {
+        List<ArtistResponseOpenApi> list = new ArrayList<>();
         Iterable<Artist> artistIterable = artistRepository.findAll();
-        artistIterable.forEach(artist -> list.add(artistEntityDtoMapper.artistToArtistDto(artist)));
+        artistIterable.forEach(artist -> list.add(artistEntityOpenApiMapper.artistToArtistResponseOpenApi(artist)));
         return list;
     }
 
     @Override
-    public ArtistDto findById(final int id) {
+    public ArtistResponseOpenApi findById(final int id) {
         Artist artist = artistRepository.findById(id).orElse(null);
-        return artistEntityDtoMapper.artistToArtistDto(artist);
+        return artistEntityOpenApiMapper.artistToArtistResponseOpenApi(artist);
     }
 
     @Override
-    public ArtistDto findByIdSecured(final int id) {
-        return artistEntityDtoMapper.artistToArtistDto(artistRepository.findByIdSecured(id));
+    public ArtistResponseOpenApi findByIdSecured(final int id) {
+        return artistEntityOpenApiMapper.artistToArtistResponseOpenApi(artistRepository.findByIdSecured(id));
     }
 
     @Override
-    public ArtistDto save(final Artist artist) {
-        return artistEntityDtoMapper.artistToArtistDto(artistRepository.save(artist));
+    public ArtistResponseOpenApi save(final Artist artist) {
+        return artistEntityOpenApiMapper.artistToArtistResponseOpenApi(artistRepository.save(artist));
     }
 
     @Override
@@ -51,8 +51,8 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public ArtistDto update(final Artist artist, final int artistId) {
+    public ArtistResponseOpenApi update(final Artist artist, final int artistId) {
         artist.setId(artistId);
-        return artistEntityDtoMapper.artistToArtistDto(artistRepository.save(artist));
+        return artistEntityOpenApiMapper.artistToArtistResponseOpenApi(artistRepository.save(artist));
     }
 }

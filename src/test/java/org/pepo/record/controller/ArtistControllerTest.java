@@ -8,8 +8,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.pepo.record.dto.ArtistDto;
+import org.pepo.record.SwaggerCodgen.model.ArtistResponseOpenApi;
 import org.pepo.record.entity.Artist;
+import org.pepo.record.mapper.ArtistEntityOpenApiMapper;
 import org.pepo.record.service.artist.ArtistService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,6 +34,9 @@ class ArtistControllerTest {
     @Mock
     ArtistService artistService;
 
+    @Mock
+    ArtistEntityOpenApiMapper artistEntityOpenApiMapper;
+
     MockMvc mockMvc;
 
     @BeforeEach
@@ -54,7 +58,7 @@ class ArtistControllerTest {
     @Test
     void getArtistById() throws Exception {
         when(artistService.findById(Mockito.anyInt()))
-                .thenReturn(ArtistDto.builder().build());
+                .thenReturn(new ArtistResponseOpenApi());
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders.get("/artist/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
         verify(artistService, times(1)).findById(Mockito.anyInt());
@@ -67,7 +71,7 @@ class ArtistControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         String artistString = mapper.writeValueAsString(artist);
-        when(artistService.save(Mockito.any(Artist.class))).thenReturn(ArtistDto.builder().build());
+        when(artistService.save(Mockito.any(Artist.class))).thenReturn(new ArtistResponseOpenApi());
         ResultActions result = mockMvc.perform(post("/artist/new")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(artistString));

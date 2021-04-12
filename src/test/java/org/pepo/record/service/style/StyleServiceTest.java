@@ -6,9 +6,9 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.pepo.record.dto.StyleDto;
+import org.pepo.record.SwaggerCodgen.model.StyleResponseOpenApi;
 import org.pepo.record.entity.Style;
-import org.pepo.record.mapper.StyleEntityDtoMapper;
+import org.pepo.record.mapper.StyleEntityOpenApiMapper;
 import org.pepo.record.repository.StyleRepository;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ class StyleServiceTest {
     StyleRepository styleRepository;
 
     @Mock
-    StyleEntityDtoMapper styleEntityDtoMapper;
+    StyleEntityOpenApiMapper styleEntityOpenApiMapper;
 
     @BeforeEach
     void setUp() {
@@ -35,9 +35,9 @@ class StyleServiceTest {
     @Test
     void findAll() {
         when(styleRepository.findAll()).thenReturn(new ArrayList<>());
-        when(styleEntityDtoMapper.styleToStyleDto(ArgumentMatchers.any(Style.class))).thenReturn(StyleDto.builder().build());
-        Iterable<StyleDto> styleDtos = styleService.findAll();
+        when(styleEntityOpenApiMapper.styleToStyleResponseOpenApi(ArgumentMatchers.any(Style.class))).thenReturn(new StyleResponseOpenApi());
+        Iterable<StyleResponseOpenApi> styleResponseOpenApiIterable = styleService.findAll();
         verify(styleRepository, times(1)).findAll();
-        assertNotNull(styleDtos);
+        assertNotNull(styleResponseOpenApiIterable);
     }
 }

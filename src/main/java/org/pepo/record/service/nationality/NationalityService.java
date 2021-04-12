@@ -1,11 +1,11 @@
 package org.pepo.record.service.nationality;
 
-import org.pepo.record.dto.NationalityDto;
+import org.pepo.record.SwaggerCodgen.model.NationalityResponseOpenApi;
 import org.pepo.record.entity.Nationality;
 
 public interface NationalityService {
 
-    Iterable<NationalityDto> findAll();
+    Iterable<NationalityResponseOpenApi> findAll();
 
-    NationalityDto save(Nationality nationality);
+    NationalityResponseOpenApi save(Nationality nationality);
 }
