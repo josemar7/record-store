@@ -24,6 +24,10 @@ public class Record extends BaseVO {
     @Column(name = "idrecord")
     private Integer id;
 
+    @ManyToOne
+    @JoinColumn(name = "idartist")
+    private Artist artist;
+
     private String name;
 
     private String image;

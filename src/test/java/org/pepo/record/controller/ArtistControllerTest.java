@@ -24,7 +24,8 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class ArtistControllerTest {
 
@@ -75,6 +76,24 @@ class ArtistControllerTest {
         ResultActions result = mockMvc.perform(post("/artist/new")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(artistString));
+        assertEquals(HttpStatus.OK.value(), result.andReturn().getResponse().getStatus());
+    }
+
+    @Test
+    void deleteArtistById() throws Exception {
+        doNothing().when(artistService).delete(Mockito.anyInt());
+        ResultActions result = mockMvc.perform(delete("/artist/1")).andExpect(status().is2xxSuccessful());
+        verify(artistService, times(1)).delete(Mockito.anyInt());
+        assertEquals(HttpStatus.NO_CONTENT.value(), result.andReturn().getResponse().getStatus());
+    }
+
+    @Test
+    void updateArtistById() throws Exception {
+        Artist artist = new Artist();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        String artistString = mapper.writeValueAsString(artist);
+        ResultActions result = mockMvc.perform(put("/artist/1").contentType(MediaType.APPLICATION_JSON).content(artistString));
         assertEquals(HttpStatus.OK.value(), result.andReturn().getResponse().getStatus());
     }
 }

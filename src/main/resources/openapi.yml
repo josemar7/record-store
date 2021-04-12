@@ -167,6 +167,79 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/RecordResponseOpenApi'
+  /record/{recordId}:
+    get:
+      summary: get record by id
+      operationId: getRecordById
+      parameters:
+        - in: path
+          name: recordId
+          schema:
+            type: integer
+          required: true
+          description: record id
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordResponseOpenApi'
+    delete:
+      summary: delete record by id
+      operationId: deleteRecordById
+      parameters:
+        - in: path
+          name: recordId
+          schema:
+            type: integer
+          required: true
+          description: reccord id
+      responses:
+        204:
+          description: record was deleted
+    put:
+      summary: update record by id
+      operationId: updateRecordById
+      parameters:
+        - in: path
+          name: recordId
+          schema:
+            type: integer
+          required: true
+          description: record id
+      requestBody:
+        description: record to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecordResponseOpenApi'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordResponseOpenApi'
+  /record/new:
+    post:
+      summary: add new record
+      operationId: newRecord
+      requestBody:
+        description: record to be added
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecordResponseOpenApi'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordResponseOpenApi'
   /format/all:
     get:
       summary: get formats
@@ -211,6 +284,8 @@ components:
           type: string
         format:
           $ref: '#/components/schemas/FormatResponseOpenApi'
+        artist:
+          $ref: '#/components/schemas/ArtistResponseOpenApi'
         units:
           type: integer
     FormatResponseOpenApi:
