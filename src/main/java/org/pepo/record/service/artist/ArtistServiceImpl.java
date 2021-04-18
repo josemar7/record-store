@@ -55,4 +55,12 @@ public class ArtistServiceImpl implements ArtistService {
         artist.setId(artistId);
         return artistEntityOpenApiMapper.artistToArtistResponseOpenApi(artistRepository.save(artist));
     }
+
+    @Override
+    public List<ArtistResponseOpenApi> findByNameLike(final String name) {
+        List<ArtistResponseOpenApi> list = new ArrayList<>();
+        List<Artist> artistList =  artistRepository.findByNameLikeIgnoreCase("%" + name + "%");
+        artistList.forEach(artist -> list.add(artistEntityOpenApiMapper.artistToArtistResponseOpenApi(artist)));
+        return list;
+    }
 }

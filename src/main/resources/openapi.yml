@@ -19,6 +19,26 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ArtistResponseOpenApi'
+  /artist/filter:
+    get:
+      summary: get filtered artists
+      operationId: getFilterArtists
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+          required: false
+          description: artist name
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ArtistResponseOpenApi'
   /artist/{artistId}:
     get:
       summary: get artist by id

@@ -13,6 +13,7 @@ import org.pepo.record.mapper.ArtistEntityOpenApiMapper;
 import org.pepo.record.repository.ArtistRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
@@ -50,5 +51,14 @@ class ArtistServiceTest {
         verify(artistEntityOpenApiMapper, times(1)).artistToArtistResponseOpenApi(Mockito.any(Artist.class));
         verify(artistRepository, times(1)).save(ArgumentMatchers.any(Artist.class));
         assertNotNull(artistResponseOpenApi);
+    }
+
+    @Test
+    void findByNameLike() {
+        when(artistRepository.findByNameLikeIgnoreCase(Mockito.anyString())).thenReturn(new ArrayList<>());
+        when(artistEntityOpenApiMapper.artistToArtistResponseOpenApi(Mockito.any(Artist.class))).thenReturn(new ArtistResponseOpenApi());
+        List<ArtistResponseOpenApi> artistResponseOpenApiList = artistService.findByNameLike("name");
+        verify(artistRepository, times(1)).findByNameLikeIgnoreCase(Mockito.anyString());
+        assertNotNull(artistResponseOpenApiList);
     }
 }

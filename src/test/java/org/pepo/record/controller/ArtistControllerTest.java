@@ -96,4 +96,15 @@ class ArtistControllerTest {
         ResultActions result = mockMvc.perform(put("/artist/1").contentType(MediaType.APPLICATION_JSON).content(artistString));
         assertEquals(HttpStatus.OK.value(), result.andReturn().getResponse().getStatus());
     }
+
+    @Test
+    void getFilterArtists() throws Exception {
+        when(artistService.findByNameLike(Mockito.anyString()))
+                .thenReturn(new ArrayList<>());
+        ResultActions result = mockMvc.perform(MockMvcRequestBuilders.get("/artist/filter")
+                .param("name", "name"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+        verify(artistService, times(1)).findByNameLike(Mockito.anyString());
+        assertEquals(HttpStatus.OK.value(), result.andReturn().getResponse().getStatus());
+    }
 }

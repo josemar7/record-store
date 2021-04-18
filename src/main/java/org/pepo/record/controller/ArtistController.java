@@ -51,4 +51,9 @@ public class ArtistController implements ArtistApi {
     public ResponseEntity<ArtistResponseOpenApi> updateArtistById(final Integer artistId, final ArtistResponseOpenApi artistResponseOpenApi) {
         return ResponseEntity.ok(artistService.update(artistEntityOpenApiMapper.artistResponseOpenApiToArtist(artistResponseOpenApi), artistId));
     }
+
+    @Override
+    public ResponseEntity<List<ArtistResponseOpenApi>> getFilterArtists(final String name) {
+        return ResponseEntity.ok(artistService.findByNameLike(name));
+    }
 }
