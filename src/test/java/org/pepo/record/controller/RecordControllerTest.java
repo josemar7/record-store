@@ -92,4 +92,16 @@ class RecordControllerTest {
         ResultActions result = mockMvc.perform(put("/record/1").contentType(MediaType.APPLICATION_JSON).content(recordString));
         assertEquals(HttpStatus.OK.value(), result.andReturn().getResponse().getStatus());
     }
+
+    @Test
+    void getFilterRecords() throws Exception {
+        when(recordService.filteredRecords(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
+                .thenReturn(new ArrayList<>());
+        ResultActions result = mockMvc.perform(get("/record/filter")
+                .param("name","name").param("artist", "artist").param("format", "format"))
+                .andExpect(status().isOk());
+        verify(recordService, times(1))
+                .filteredRecords(Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
+        assertEquals(HttpStatus.OK.value(), result.andReturn().getResponse().getStatus());
+    }
 }

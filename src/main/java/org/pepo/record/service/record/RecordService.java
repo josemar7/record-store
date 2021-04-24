@@ -3,6 +3,8 @@ package org.pepo.record.service.record;
 import org.pepo.record.SwaggerCodgen.model.RecordResponseOpenApi;
 import org.pepo.record.entity.Record;
 
+import java.util.List;
+
 public interface RecordService {
 
     Iterable<RecordResponseOpenApi> findAll();
@@ -14,4 +16,6 @@ public interface RecordService {
     RecordResponseOpenApi update(Record record, int recordId);
 
     void delete(int id);
+
+    List<RecordResponseOpenApi> filteredRecords(String name, String artist, String format);
 }

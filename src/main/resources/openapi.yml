@@ -187,6 +187,38 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/RecordResponseOpenApi'
+  /record/filter:
+    get:
+      summary: get filtered records
+      operationId: getFilterRecords
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+          required: false
+          description: record name
+        - in: query
+          name: artist
+          schema:
+            type: string
+          required: false
+          description: artist name
+        - in: query
+          name: format
+          schema:
+            type: string
+          required: false
+          description: format id
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecordResponseOpenApi'
   /record/{recordId}:
     get:
       summary: get record by id

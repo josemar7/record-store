@@ -10,7 +10,7 @@ import org.mockito.MockitoAnnotations;
 import org.pepo.record.SwaggerCodgen.model.RecordResponseOpenApi;
 import org.pepo.record.entity.Record;
 import org.pepo.record.mapper.RecordEntityOpenApiMapper;
-import org.pepo.record.repository.RecordRepository;
+import org.pepo.record.repository.record.RecordRepository;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -76,5 +76,16 @@ class RecordServiceImplTest {
     void delete() {
         doNothing().when(recordRepository).delete(ArgumentMatchers.any(Record.class));
         recordService.delete(1);
+    }
+
+    @Test
+    void filteredRecords() {
+        when(recordRepository.findFilteredRecords(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
+                .thenReturn(new ArrayList<>());
+        when(recordEntityOpenApiMapper.recordToRecordResponseOpenApi(Mockito.any(Record.class))).thenReturn(new RecordResponseOpenApi());
+        Iterable<RecordResponseOpenApi> recordResponseOpenApiIterable = recordService.filteredRecords("name", "artist", "format");
+        verify(recordRepository, times(1))
+                .findFilteredRecords(Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
+        assertNotNull(recordResponseOpenApiIterable);
     }
 }

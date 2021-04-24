@@ -51,4 +51,9 @@ public class RecordController implements RecordApi {
     public ResponseEntity<RecordResponseOpenApi> updateRecordById(Integer recordId, RecordResponseOpenApi recordResponseOpenApi) {
         return ResponseEntity.ok(recordService.update(recordEntityOpenApiMapper.recordResponseOpenApiToRecord(recordResponseOpenApi), recordId));
     }
+
+    @Override
+    public ResponseEntity<List<RecordResponseOpenApi>> getFilterRecords(String name, String artist, String format) {
+        return ResponseEntity.ok(recordService.filteredRecords(name, artist, format));
+    }
 }
