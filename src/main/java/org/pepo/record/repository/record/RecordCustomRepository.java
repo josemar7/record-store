@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface RecordCustomRepository {
 
-    List<Record> findFilteredRecords(String name, String artist, String format);
+    List<Record> findFilteredRecords(String name, String artist, String format, String style);
 }

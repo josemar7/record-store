@@ -52,9 +52,9 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public List<RecordResponseOpenApi> filteredRecords(final String name, final String artist, final String format) {
+    public List<RecordResponseOpenApi> filteredRecords(final String name, final String artist, final String format, final String style) {
         List<RecordResponseOpenApi> list = new ArrayList<>();
-        List<Record> recordList = recordRepository.findFilteredRecords(name, artist, format);
+        List<Record> recordList = recordRepository.findFilteredRecords(name, artist, format, style);
         recordList.forEach(record -> list.add(recordEntityOpenApiMapper.recordToRecordResponseOpenApi(record)));
         return list;
     }

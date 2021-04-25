@@ -95,13 +95,14 @@ class RecordControllerTest {
 
     @Test
     void getFilterRecords() throws Exception {
-        when(recordService.filteredRecords(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
+        when(recordService.filteredRecords(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
                 .thenReturn(new ArrayList<>());
         ResultActions result = mockMvc.perform(get("/record/filter")
-                .param("name","name").param("artist", "artist").param("format", "format"))
+                .param("name","name").param("artist", "artist").param("format", "format")
+                .param("style", "style"))
                 .andExpect(status().isOk());
         verify(recordService, times(1))
-                .filteredRecords(Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
+                .filteredRecords(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
         assertEquals(HttpStatus.OK.value(), result.andReturn().getResponse().getStatus());
     }
 }
