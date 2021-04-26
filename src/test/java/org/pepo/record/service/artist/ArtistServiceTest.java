@@ -10,7 +10,9 @@ import org.mockito.MockitoAnnotations;
 import org.pepo.record.SwaggerCodgen.model.ArtistResponseOpenApi;
 import org.pepo.record.entity.Artist;
 import org.pepo.record.mapper.ArtistEntityOpenApiMapper;
-import org.pepo.record.repository.ArtistRepository;
+import org.pepo.record.repository.artist.ArtistRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +42,15 @@ class ArtistServiceTest {
         when(artistEntityOpenApiMapper.artistToArtistResponseOpenApi(Mockito.any(Artist.class))).thenReturn(new ArtistResponseOpenApi());
         Iterable<ArtistResponseOpenApi> artistResponseOpenApiIterable = artistService.findAll();
         verify(artistRepository, times(1)).findAll();
+        assertNotNull(artistResponseOpenApiIterable);
+    }
+
+    @Test
+    void findAllPaginated() {
+        when(artistRepository.findAll(Mockito.any(PageRequest.class))).thenReturn(Page.empty());
+        when(artistEntityOpenApiMapper.artistToArtistResponseOpenApi(Mockito.any(Artist.class))).thenReturn(new ArtistResponseOpenApi());
+        Iterable<ArtistResponseOpenApi> artistResponseOpenApiIterable = artistService.findAll(0, 3);
+        verify(artistRepository, times(1)).findAll(Mockito.any(PageRequest.class));
         assertNotNull(artistResponseOpenApiIterable);
     }
 

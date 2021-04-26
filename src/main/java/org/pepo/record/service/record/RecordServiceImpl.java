@@ -6,10 +6,14 @@ import org.pepo.record.entity.Record;
 import org.pepo.record.mapper.RecordEntityOpenApiMapper;
 import org.pepo.record.repository.record.RecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @AllArgsConstructor
@@ -55,6 +59,22 @@ public class RecordServiceImpl implements RecordService {
     public List<RecordResponseOpenApi> filteredRecords(final String name, final String artist, final String format, final String style) {
         List<RecordResponseOpenApi> list = new ArrayList<>();
         List<Record> recordList = recordRepository.findFilteredRecords(name, artist, format, style);
+        recordList.forEach(record -> list.add(recordEntityOpenApiMapper.recordToRecordResponseOpenApi(record)));
+        return list;
+    }
+
+    @Override
+    public List<RecordResponseOpenApi> findAll(final Integer page, final Integer size) {
+        List<RecordResponseOpenApi> list = new ArrayList<>();
+        List<Record> recordList;
+        if (page == null && size == null) {
+            recordList = StreamSupport.stream(recordRepository.findAll().spliterator(), false)
+                    .collect(Collectors.toList());
+        }
+        else {
+            Pageable paging = PageRequest.of(page, size);
+            recordList = recordRepository.findAll(paging).getContent();
+        }
         recordList.forEach(record -> list.add(recordEntityOpenApiMapper.recordToRecordResponseOpenApi(record)));
         return list;
     }

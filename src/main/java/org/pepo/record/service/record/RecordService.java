@@ -9,6 +9,8 @@ public interface RecordService {
 
     Iterable<RecordResponseOpenApi> findAll();
 
+    List<RecordResponseOpenApi> findAll(Integer page, Integer size);
+
     RecordResponseOpenApi findById(int id);
 
     RecordResponseOpenApi save(Record record);

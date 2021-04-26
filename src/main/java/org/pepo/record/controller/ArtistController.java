@@ -11,8 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @RestController
 public class ArtistController implements ArtistApi {
@@ -30,11 +28,8 @@ public class ArtistController implements ArtistApi {
     }
 
     @Override
-    public ResponseEntity<List<ArtistResponseOpenApi>> getAllArtists() {
-        List<ArtistResponseOpenApi> result =
-                StreamSupport.stream(artistService.findAll().spliterator(), false)
-                        .collect(Collectors.toList());
-        return ResponseEntity.ok(result);
+    public ResponseEntity<List<ArtistResponseOpenApi>> getAllArtists(final Integer page, final Integer size) {
+        return ResponseEntity.ok(artistService.findAll(page, size));
     }
 
     @Override

@@ -11,6 +11,8 @@ import org.pepo.record.SwaggerCodgen.model.RecordResponseOpenApi;
 import org.pepo.record.entity.Record;
 import org.pepo.record.mapper.RecordEntityOpenApiMapper;
 import org.pepo.record.repository.record.RecordRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -40,6 +42,15 @@ class RecordServiceImplTest {
         when(recordEntityOpenApiMapper.recordToRecordResponseOpenApi(Mockito.any(Record.class))).thenReturn(new RecordResponseOpenApi());
         Iterable<RecordResponseOpenApi> recordResponseOpenApiIterable = recordService.findAll();
         verify(recordRepository, times(1)).findAll();
+        assertNotNull(recordResponseOpenApiIterable);
+    }
+
+    @Test
+    void findAllPaginated() {
+        when(recordRepository.findAll(Mockito.any(PageRequest.class))).thenReturn(Page.empty());
+        when(recordEntityOpenApiMapper.recordToRecordResponseOpenApi(Mockito.any(Record.class))).thenReturn(new RecordResponseOpenApi());
+        Iterable<RecordResponseOpenApi> recordResponseOpenApiIterable = recordService.findAll(0, 3);
+        verify(recordRepository, times(1)).findAll(Mockito.any(PageRequest.class));
         assertNotNull(recordResponseOpenApiIterable);
     }
 

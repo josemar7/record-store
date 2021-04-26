@@ -24,9 +24,9 @@ public class RecordController implements RecordApi {
     private RecordEntityOpenApiMapper recordEntityOpenApiMapper;
 
     @Override
-    public ResponseEntity<List<RecordResponseOpenApi>> getAllRecords() {
+    public ResponseEntity<List<RecordResponseOpenApi>> getAllRecords(final Integer page, final Integer size) {
         List<RecordResponseOpenApi> result =
-                StreamSupport.stream(recordService.findAll().spliterator(), false)
+                StreamSupport.stream(recordService.findAll(page, size).spliterator(), false)
                         .collect(Collectors.toList());
         return ResponseEntity.ok(result);
     }

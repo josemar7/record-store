@@ -3,7 +3,7 @@ package org.pepo.record.controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.pepo.record.mapper.ArtistEntityOpenApiMapper;
-import org.pepo.record.repository.ArtistRepository;
+import org.pepo.record.repository.artist.ArtistRepository;
 import org.pepo.record.service.artist.ArtistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

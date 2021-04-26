@@ -52,7 +52,7 @@ class ArtistControllerTest {
                 .thenReturn(new ArrayList<>());
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders.get("/artist/all"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
-        verify(artistService, times(1)).findAll();
+        verify(artistService, times(1)).findAll(Mockito.nullable(Integer.class), Mockito.nullable(Integer.class));
         assertEquals(HttpStatus.OK.value(), result.andReturn().getResponse().getStatus());
     }
 

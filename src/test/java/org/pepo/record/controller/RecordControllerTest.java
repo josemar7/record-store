@@ -46,11 +46,11 @@ class RecordControllerTest {
 
     @Test
     void getAllRecords() throws Exception {
-        when(recordService.findAll())
+        when(recordService.findAll(Mockito.nullable(Integer.class), Mockito.nullable(Integer.class)))
                 .thenReturn(new ArrayList<>());
         ResultActions result = mockMvc.perform(get("/record/all"))
                 .andExpect(status().isOk());
-        verify(recordService, times(1)).findAll();
+        verify(recordService, times(1)).findAll(Mockito.nullable(Integer.class), Mockito.nullable(Integer.class));
         assertEquals(HttpStatus.OK.value(), result.andReturn().getResponse().getStatus());
     }
 

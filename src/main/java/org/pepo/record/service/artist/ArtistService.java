@@ -9,6 +9,8 @@ public interface ArtistService {
 
     Iterable<ArtistResponseOpenApi> findAll();
 
+    List<ArtistResponseOpenApi> findAll(Integer page, Integer size);
+
     ArtistResponseOpenApi findById(int id);
 
     ArtistResponseOpenApi findByIdSecured(int id);

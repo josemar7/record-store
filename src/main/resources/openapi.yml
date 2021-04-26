@@ -10,6 +10,21 @@ paths:
     get:
       summary: get all artists
       operationId: getAllArtists
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            format: int32
+          required: false
+          description: page number
+        - in: query
+          name: size
+          schema:
+            type: integer
+            format: int32
+          required: false
+          description: page size
       responses:
         200:
           description: successful operation
@@ -178,6 +193,21 @@ paths:
     get:
       summary: get all records
       operationId: getAllRecords
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            format: int32
+          required: false
+          description: page number
+        - in: query
+          name: size
+          schema:
+            type: integer
+            format: int32
+          required: false
+          description: page size
       responses:
         200:
           description: successful operation
