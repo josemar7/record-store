@@ -94,7 +94,7 @@ class RecordServiceImplTest {
         when(recordRepository.findFilteredRecords(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
                 .thenReturn(new ArrayList<>());
         when(recordEntityOpenApiMapper.recordToRecordResponseOpenApi(Mockito.any(Record.class))).thenReturn(new RecordResponseOpenApi());
-        Iterable<RecordResponseOpenApi> recordResponseOpenApiIterable = recordService.filteredRecords("name", "artist", "format", "style");
+        Iterable<RecordResponseOpenApi> recordResponseOpenApiIterable = recordService.filteredRecords("name", "artist", "format", "style", null, null);
         verify(recordRepository, times(1))
                 .findFilteredRecords(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
         assertNotNull(recordResponseOpenApiIterable);

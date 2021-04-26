@@ -19,5 +19,5 @@ public interface RecordService {
 
     void delete(int id);
 
-    List<RecordResponseOpenApi> filteredRecords(String name, String artist, String format, String style);
+    List<RecordResponseOpenApi> filteredRecords(String name, String artist, String format, String style, Integer page, Integer size);
 }

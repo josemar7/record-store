@@ -246,6 +246,20 @@ paths:
             type: string
           required: false
           description: format name
+        - in: query
+          name: page
+          schema:
+            type: integer
+            format: int32
+          required: false
+          description: page number
+        - in: query
+          name: size
+          schema:
+            type: integer
+            format: int32
+          required: false
+          description: page size
       responses:
         200:
           description: successful operation
