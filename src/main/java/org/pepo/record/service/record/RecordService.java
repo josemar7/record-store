@@ -1,5 +1,6 @@
 package org.pepo.record.service.record;
 
+import org.pepo.record.SwaggerCodgen.model.RecordPagedResponseOpenApi;
 import org.pepo.record.SwaggerCodgen.model.RecordResponseOpenApi;
 import org.pepo.record.entity.Record;
 
@@ -20,4 +21,6 @@ public interface RecordService {
     void delete(int id);
 
     List<RecordResponseOpenApi> filteredRecords(String name, String artist, String format, String style, Integer page, Integer size);
+
+    RecordPagedResponseOpenApi findAllPaged(Integer page, Integer size);
 }

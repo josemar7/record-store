@@ -1,6 +1,7 @@
 package org.pepo.record.controller;
 
 import org.pepo.record.SwaggerCodgen.api.ArtistApi;
+import org.pepo.record.SwaggerCodgen.model.ArtistPagedResponseOpenApi;
 import org.pepo.record.SwaggerCodgen.model.ArtistResponseOpenApi;
 import org.pepo.record.mapper.ArtistEntityOpenApiMapper;
 import org.pepo.record.service.artist.ArtistService;
@@ -50,5 +51,10 @@ public class ArtistController implements ArtistApi {
     @Override
     public ResponseEntity<List<ArtistResponseOpenApi>> getFilterArtists(final String name) {
         return ResponseEntity.ok(artistService.findByNameLike(name));
+    }
+
+    @Override
+    public ResponseEntity<ArtistPagedResponseOpenApi> getAllArtistsPaged(final Integer page, final Integer size) {
+        return ResponseEntity.ok(artistService.findAllPaged(page, size));
     }
 }

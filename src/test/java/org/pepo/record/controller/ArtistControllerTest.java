@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.pepo.record.SwaggerCodgen.model.ArtistPagedResponseOpenApi;
 import org.pepo.record.SwaggerCodgen.model.ArtistResponseOpenApi;
 import org.pepo.record.entity.Artist;
 import org.pepo.record.mapper.ArtistEntityOpenApiMapper;
@@ -105,6 +106,17 @@ class ArtistControllerTest {
                 .param("name", "name"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
         verify(artistService, times(1)).findByNameLike(Mockito.anyString());
+        assertEquals(HttpStatus.OK.value(), result.andReturn().getResponse().getStatus());
+    }
+
+    @Test
+    void getAllArtistsPaged() throws Exception {
+        when(artistService.findAllPaged(Mockito.anyInt(), Mockito.anyInt()))
+                .thenReturn(new ArtistPagedResponseOpenApi());
+        ResultActions result = mockMvc.perform(MockMvcRequestBuilders.get("/artist/all/paged")
+                .param("page", "0").param("size", "5"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+        verify(artistService, times(1)).findAllPaged(Mockito.anyInt(), Mockito.anyInt());
         assertEquals(HttpStatus.OK.value(), result.andReturn().getResponse().getStatus());
     }
 }

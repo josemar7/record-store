@@ -1,5 +1,6 @@
 package org.pepo.record.service.artist;
 
+import org.pepo.record.SwaggerCodgen.model.ArtistPagedResponseOpenApi;
 import org.pepo.record.SwaggerCodgen.model.ArtistResponseOpenApi;
 import org.pepo.record.entity.Artist;
 
@@ -22,4 +23,6 @@ public interface ArtistService {
     void delete(int id);
 
     List<ArtistResponseOpenApi> findByNameLike(String name);
+
+    ArtistPagedResponseOpenApi findAllPaged(Integer page, Integer size);
 }

@@ -7,12 +7,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.pepo.record.SwaggerCodgen.model.RecordPagedResponseOpenApi;
 import org.pepo.record.SwaggerCodgen.model.RecordResponseOpenApi;
 import org.pepo.record.entity.Record;
 import org.pepo.record.mapper.RecordEntityOpenApiMapper;
 import org.pepo.record.repository.record.RecordRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -98,5 +100,14 @@ class RecordServiceImplTest {
         verify(recordRepository, times(1))
                 .findFilteredRecords(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
         assertNotNull(recordResponseOpenApiIterable);
+    }
+
+    @Test
+    void findAllPaged() {
+        when(recordRepository.findAll(Mockito.any(Pageable.class))).thenReturn(Page.empty());
+        when(recordEntityOpenApiMapper.recordToRecordResponseOpenApi(Mockito.any(Record.class))).thenReturn(new RecordResponseOpenApi());
+        RecordPagedResponseOpenApi recordPagedResponseOpenApi = recordService.findAllPaged(0, 5);
+        verify(recordRepository, times(1)).findAll(Mockito.any(Pageable.class));
+        assertNotNull(recordPagedResponseOpenApi);
     }
 }

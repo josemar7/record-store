@@ -34,6 +34,32 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ArtistResponseOpenApi'
+  /artist/all/paged:
+    get:
+      summary: get all artists paged
+      operationId: getAllArtistsPaged
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            format: int32
+          required: false
+          description: page number
+        - in: query
+          name: size
+          schema:
+            type: integer
+            format: int32
+          required: false
+          description: page size
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtistPagedResponseOpenApi'
   /artist/filter:
     get:
       summary: get filtered artists
@@ -217,6 +243,32 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/RecordResponseOpenApi'
+  /record/all/paged:
+    get:
+      summary: get all records paged
+      operationId: getAllRecordsPaged
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            format: int32
+          required: false
+          description: page number
+        - in: query
+          name: size
+          schema:
+            type: integer
+            format: int32
+          required: false
+          description: page size
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordPagedResponseOpenApi'
   /record/filter:
     get:
       summary: get filtered records
@@ -422,3 +474,27 @@ components:
           $ref: '#/components/schemas/NationalityResponseOpenApi'
         style:
           $ref: '#/components/schemas/StyleResponseOpenApi'
+    ArtistPagedResponseOpenApi:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArtistResponseOpenApi'
+        totalPages:
+          type: integer
+        totalElements:
+          type: integer
+          format: int64
+    RecordPagedResponseOpenApi:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecordResponseOpenApi'
+        totalPages:
+          type: integer
+        totalElements:
+          type: integer
+          format: int64

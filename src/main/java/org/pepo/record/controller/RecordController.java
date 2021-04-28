@@ -1,6 +1,7 @@
 package org.pepo.record.controller;
 
 import org.pepo.record.SwaggerCodgen.api.RecordApi;
+import org.pepo.record.SwaggerCodgen.model.RecordPagedResponseOpenApi;
 import org.pepo.record.SwaggerCodgen.model.RecordResponseOpenApi;
 import org.pepo.record.mapper.RecordEntityOpenApiMapper;
 import org.pepo.record.service.record.RecordService;
@@ -56,5 +57,10 @@ public class RecordController implements RecordApi {
     public ResponseEntity<List<RecordResponseOpenApi>> getFilterRecords(final String name, final String artist, final String format, final String style,
                                                                         final Integer page, final Integer size) {
         return ResponseEntity.ok(recordService.filteredRecords(name, artist, format, style, page, size));
+    }
+
+    @Override
+    public ResponseEntity<RecordPagedResponseOpenApi> getAllRecordsPaged(final Integer page, final Integer size) {
+        return ResponseEntity.ok(recordService.findAllPaged(page, size));
     }
 }

@@ -1,11 +1,13 @@
 package org.pepo.record.service.artist;
 
 import lombok.AllArgsConstructor;
+import org.pepo.record.SwaggerCodgen.model.ArtistPagedResponseOpenApi;
 import org.pepo.record.SwaggerCodgen.model.ArtistResponseOpenApi;
 import org.pepo.record.entity.Artist;
 import org.pepo.record.mapper.ArtistEntityOpenApiMapper;
 import org.pepo.record.repository.artist.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -82,5 +84,18 @@ public class ArtistServiceImpl implements ArtistService {
         }
         artistList.forEach(artist -> list.add(artistEntityOpenApiMapper.artistToArtistResponseOpenApi(artist)));
         return list;
+    }
+
+    @Override
+    public ArtistPagedResponseOpenApi findAllPaged(final Integer page, final Integer size) {
+        List<ArtistResponseOpenApi> list = new ArrayList<>();
+        ArtistPagedResponseOpenApi responseOpenApi = new ArtistPagedResponseOpenApi();
+        Pageable paging = PageRequest.of(page, size);
+        Page<Artist> artistPage = artistRepository.findAll(paging);
+        artistPage.getContent().forEach(artist -> list.add(artistEntityOpenApiMapper.artistToArtistResponseOpenApi(artist)));
+        responseOpenApi.setTotalElements(artistPage.getTotalElements());
+        responseOpenApi.setTotalPages(artistPage.getTotalPages());
+        responseOpenApi.setResult(list);
+        return responseOpenApi;
     }
 }

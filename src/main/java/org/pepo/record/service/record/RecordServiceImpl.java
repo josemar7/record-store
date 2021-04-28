@@ -1,11 +1,13 @@
 package org.pepo.record.service.record;
 
 import lombok.AllArgsConstructor;
+import org.pepo.record.SwaggerCodgen.model.RecordPagedResponseOpenApi;
 import org.pepo.record.SwaggerCodgen.model.RecordResponseOpenApi;
 import org.pepo.record.entity.Record;
 import org.pepo.record.mapper.RecordEntityOpenApiMapper;
 import org.pepo.record.repository.record.RecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -85,5 +87,18 @@ public class RecordServiceImpl implements RecordService {
         }
         recordList.forEach(record -> list.add(recordEntityOpenApiMapper.recordToRecordResponseOpenApi(record)));
         return list;
+    }
+
+    @Override
+    public RecordPagedResponseOpenApi findAllPaged(Integer page, Integer size) {
+        List<RecordResponseOpenApi> list = new ArrayList<>();
+        RecordPagedResponseOpenApi responseOpenApi = new RecordPagedResponseOpenApi();
+        Pageable paging = PageRequest.of(page, size);
+        Page<Record> recordPage = recordRepository.findAll(paging);
+        recordPage.getContent().forEach(record -> list.add(recordEntityOpenApiMapper.recordToRecordResponseOpenApi(record)));
+        responseOpenApi.setTotalElements(recordPage.getTotalElements());
+        responseOpenApi.setTotalPages(recordPage.getTotalPages());
+        responseOpenApi.setResult(list);
+        return responseOpenApi;
     }
 }
