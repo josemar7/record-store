@@ -58,19 +58,17 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public List<RecordResponseOpenApi> filteredRecords(final String name, final String artist, final String format, final String style,
+    public RecordPagedResponseOpenApi filteredRecords(final String name, final String artist, final String format, final String style,
                                                        final Integer page, final Integer size) {
         List<RecordResponseOpenApi> list = new ArrayList<>();
-        List<Record> recordList;
-        if (page == null && size == null) {
-            recordList = recordRepository.findFilteredRecords(name, artist, format, style);
-        }
-        else {
-            Pageable paging = PageRequest.of(page, size);
-            recordList = recordRepository.findFilteredRecords(name, artist, format, style, paging).getContent();
-        }
-        recordList.forEach(record -> list.add(recordEntityOpenApiMapper.recordToRecordResponseOpenApi(record)));
-        return list;
+        RecordPagedResponseOpenApi responseOpenApi = new RecordPagedResponseOpenApi();
+        Pageable paging = PageRequest.of(page, size);
+        Page<Record> recordPage = recordRepository.findFilteredRecords(name, artist, format, style, paging);
+        recordPage.getContent().forEach(record -> list.add(recordEntityOpenApiMapper.recordToRecordResponseOpenApi(record)));
+        responseOpenApi.setTotalElements(recordPage.getTotalElements());
+        responseOpenApi.setTotalPages(recordPage.getTotalPages());
+        responseOpenApi.setResult(list);
+        return responseOpenApi;
     }
 
     @Override

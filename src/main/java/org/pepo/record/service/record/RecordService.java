@@ -20,7 +20,7 @@ public interface RecordService {
 
     void delete(int id);
 
-    List<RecordResponseOpenApi> filteredRecords(String name, String artist, String format, String style, Integer page, Integer size);
+    RecordPagedResponseOpenApi filteredRecords(String name, String artist, String format, String style, Integer page, Integer size);
 
     RecordPagedResponseOpenApi findAllPaged(Integer page, Integer size);
 }

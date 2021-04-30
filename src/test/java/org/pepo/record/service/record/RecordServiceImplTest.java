@@ -93,13 +93,13 @@ class RecordServiceImplTest {
 
     @Test
     void filteredRecords() {
-        when(recordRepository.findFilteredRecords(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
-                .thenReturn(new ArrayList<>());
+        when(recordRepository.findFilteredRecords(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.any(Pageable.class)))
+                .thenReturn(Page.empty());
         when(recordEntityOpenApiMapper.recordToRecordResponseOpenApi(Mockito.any(Record.class))).thenReturn(new RecordResponseOpenApi());
-        Iterable<RecordResponseOpenApi> recordResponseOpenApiIterable = recordService.filteredRecords("name", "artist", "format", "style", null, null);
+        RecordPagedResponseOpenApi recordPagedResponseOpenApi = recordService.filteredRecords("name", "artist", "format", "style", 0, 5);
         verify(recordRepository, times(1))
-                .findFilteredRecords(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
-        assertNotNull(recordResponseOpenApiIterable);
+                .findFilteredRecords(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.any(Pageable.class));
+        assertNotNull(recordPagedResponseOpenApi);
     }
 
     @Test

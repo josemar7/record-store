@@ -100,7 +100,7 @@ class RecordControllerTest {
     void getFilterRecords() throws Exception {
         when(recordService.filteredRecords(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString(),
                 Mockito.nullable(Integer.class), Mockito.nullable(Integer.class)))
-                .thenReturn(new ArrayList<>());
+                .thenReturn(new RecordPagedResponseOpenApi());
         ResultActions result = mockMvc.perform(get("/record/filter")
                 .param("name","name").param("artist", "artist").param("format", "format")
                 .param("style", "style"))

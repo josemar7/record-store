@@ -54,7 +54,7 @@ public class RecordController implements RecordApi {
     }
 
     @Override
-    public ResponseEntity<List<RecordResponseOpenApi>> getFilterRecords(final String name, final String artist, final String format, final String style,
+    public ResponseEntity<RecordPagedResponseOpenApi> getFilterRecords(final String name, final String artist, final String format, final String style,
                                                                         final Integer page, final Integer size) {
         return ResponseEntity.ok(recordService.filteredRecords(name, artist, format, style, page, size));
     }

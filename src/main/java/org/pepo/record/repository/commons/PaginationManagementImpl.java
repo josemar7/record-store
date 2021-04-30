@@ -44,8 +44,8 @@ public class PaginationManagementImpl implements PaginationManagement {
             query.setFirstResult(offset.intValue());
             query.setMaxResults(pageable.getPageSize());
             Long total = count(cq);
-            List<T> content = total > pageable.getOffset() ? query.getResultList() : Collections.<T> emptyList();
-            return new PageImpl<T>(content, pageable, total);
+            List<T> content = total > pageable.getOffset() ? query.getResultList() : Collections.emptyList();
+            return new PageImpl<>(content, pageable, total);
         }
     }
 
