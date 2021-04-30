@@ -63,11 +63,16 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public List<ArtistResponseOpenApi> findByNameLike(final String name) {
+    public ArtistPagedResponseOpenApi findByNameLike(final String name, final Integer page, final Integer size) {
         List<ArtistResponseOpenApi> list = new ArrayList<>();
-        List<Artist> artistList =  artistRepository.findByNameLikeIgnoreCase("%" + name + "%");
-        artistList.forEach(artist -> list.add(artistEntityOpenApiMapper.artistToArtistResponseOpenApi(artist)));
-        return list;
+        ArtistPagedResponseOpenApi responseOpenApi = new ArtistPagedResponseOpenApi();
+        Pageable paging = PageRequest.of(page, size);
+        Page<Artist> artistPage = artistRepository.findFilterByName(paging, name);
+        artistPage.getContent().forEach(artist -> list.add(artistEntityOpenApiMapper.artistToArtistResponseOpenApi(artist)));
+        responseOpenApi.setTotalElements(artistPage.getTotalElements());
+        responseOpenApi.setTotalPages(artistPage.getTotalPages());
+        responseOpenApi.setResult(list);
+        return responseOpenApi;
     }
 
     @Override

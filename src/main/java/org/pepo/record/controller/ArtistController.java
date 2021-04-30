@@ -49,8 +49,8 @@ public class ArtistController implements ArtistApi {
     }
 
     @Override
-    public ResponseEntity<List<ArtistResponseOpenApi>> getFilterArtists(final String name) {
-        return ResponseEntity.ok(artistService.findByNameLike(name));
+    public ResponseEntity<ArtistPagedResponseOpenApi> getFilterArtists(final String name, final Integer page, final Integer size) {
+        return ResponseEntity.ok(artistService.findByNameLike(name, page, size));
     }
 
     @Override

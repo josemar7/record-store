@@ -71,15 +71,27 @@ paths:
             type: string
           required: false
           description: artist name
+        - in: query
+          name: page
+          schema:
+            type: integer
+            format: int32
+          required: false
+          description: page number
+        - in: query
+          name: size
+          schema:
+            type: integer
+            format: int32
+          required: false
+          description: page size
       responses:
         200:
           description: successful operation
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ArtistResponseOpenApi'
+                $ref: '#/components/schemas/ArtistPagedResponseOpenApi'
   /artist/{artistId}:
     get:
       summary: get artist by id

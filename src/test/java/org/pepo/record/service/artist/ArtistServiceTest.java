@@ -17,7 +17,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
@@ -68,11 +67,11 @@ class ArtistServiceTest {
 
     @Test
     void findByNameLike() {
-        when(artistRepository.findByNameLikeIgnoreCase(Mockito.anyString())).thenReturn(new ArrayList<>());
+        when(artistRepository.findFilterByName(Mockito.any(Pageable.class), Mockito.anyString())).thenReturn(Page.empty());
         when(artistEntityOpenApiMapper.artistToArtistResponseOpenApi(Mockito.any(Artist.class))).thenReturn(new ArtistResponseOpenApi());
-        List<ArtistResponseOpenApi> artistResponseOpenApiList = artistService.findByNameLike("name");
-        verify(artistRepository, times(1)).findByNameLikeIgnoreCase(Mockito.anyString());
-        assertNotNull(artistResponseOpenApiList);
+        ArtistPagedResponseOpenApi artistPagedResponseOpenApi = artistService.findByNameLike("name", 0, 5);
+        verify(artistRepository, times(1)).findFilterByName(Mockito.any(Pageable.class), Mockito.anyString());
+        assertNotNull(artistPagedResponseOpenApi);
     }
 
     @Test

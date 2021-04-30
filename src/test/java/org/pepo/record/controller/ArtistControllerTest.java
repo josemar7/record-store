@@ -100,12 +100,14 @@ class ArtistControllerTest {
 
     @Test
     void getFilterArtists() throws Exception {
-        when(artistService.findByNameLike(Mockito.anyString()))
-                .thenReturn(new ArrayList<>());
+        when(artistService.findByNameLike(Mockito.anyString(), Mockito.anyInt(), Mockito.anyInt()))
+                .thenReturn(new ArtistPagedResponseOpenApi());
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders.get("/artist/filter")
-                .param("name", "name"))
+                .param("name", "name")
+                .param("page", "0")
+                .param("size", "5"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
-        verify(artistService, times(1)).findByNameLike(Mockito.anyString());
+        verify(artistService, times(1)).findByNameLike(Mockito.anyString(), Mockito.anyInt(), Mockito.anyInt());
         assertEquals(HttpStatus.OK.value(), result.andReturn().getResponse().getStatus());
     }
 

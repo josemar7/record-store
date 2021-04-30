@@ -22,7 +22,7 @@ public interface ArtistService {
 
     void delete(int id);
 
-    List<ArtistResponseOpenApi> findByNameLike(String name);
+    ArtistPagedResponseOpenApi findByNameLike(String name, Integer page, Integer size);
 
     ArtistPagedResponseOpenApi findAllPaged(Integer page, Integer size);
 }
