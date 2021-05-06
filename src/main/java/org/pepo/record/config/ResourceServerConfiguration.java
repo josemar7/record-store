@@ -54,6 +54,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 //                .antMatchers(HttpMethod.GET, "/nationality/all").permitAll()
 //                .antMatchers(HttpMethod.GET, "/style/all").permitAll()
                 .antMatchers(HttpMethod.GET, "/record/all/paged").permitAll()
+                .antMatchers(HttpMethod.GET, "/record/filter").permitAll()
                 .antMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
                 .anyRequest().authenticated();
     }
