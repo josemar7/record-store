@@ -37,4 +37,6 @@ public class Record extends BaseVO {
     private Format format;
 
     private int units;
+
+    private double price;
 }

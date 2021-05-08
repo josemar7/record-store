@@ -454,6 +454,9 @@ components:
           $ref: '#/components/schemas/ArtistResponseOpenApi'
         units:
           type: integer
+        price:
+          type: number
+          format: double
     FormatResponseOpenApi:
       type: object
       properties:

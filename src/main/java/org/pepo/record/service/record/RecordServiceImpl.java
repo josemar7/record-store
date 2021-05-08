@@ -4,12 +4,14 @@ import lombok.AllArgsConstructor;
 import org.pepo.record.SwaggerCodgen.model.RecordPagedResponseOpenApi;
 import org.pepo.record.SwaggerCodgen.model.RecordResponseOpenApi;
 import org.pepo.record.entity.Record;
+import org.pepo.record.entity.Record_;
 import org.pepo.record.mapper.RecordEntityOpenApiMapper;
 import org.pepo.record.repository.record.RecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -62,7 +64,7 @@ public class RecordServiceImpl implements RecordService {
                                                        final Integer page, final Integer size) {
         List<RecordResponseOpenApi> list = new ArrayList<>();
         RecordPagedResponseOpenApi responseOpenApi = new RecordPagedResponseOpenApi();
-        Pageable paging = PageRequest.of(page, size);
+        Pageable paging = PageRequest.of(page, size, Sort.by(Sort.Order.asc(Record_.NAME)));
         Page<Record> recordPage = recordRepository.findFilteredRecords(name, artist, format, style, paging);
         recordPage.getContent().forEach(record -> list.add(recordEntityOpenApiMapper.recordToRecordResponseOpenApi(record)));
         responseOpenApi.setTotalElements(recordPage.getTotalElements());

@@ -4,12 +4,14 @@ import lombok.AllArgsConstructor;
 import org.pepo.record.SwaggerCodgen.model.ArtistPagedResponseOpenApi;
 import org.pepo.record.SwaggerCodgen.model.ArtistResponseOpenApi;
 import org.pepo.record.entity.Artist;
+import org.pepo.record.entity.Artist_;
 import org.pepo.record.mapper.ArtistEntityOpenApiMapper;
 import org.pepo.record.repository.artist.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -84,7 +86,7 @@ public class ArtistServiceImpl implements ArtistService {
                     .collect(Collectors.toList());
         }
         else {
-            Pageable paging = PageRequest.of(page, size);
+            Pageable paging = PageRequest.of(page, size, Sort.by(Sort.Order.asc(Artist_.NAME)));
             artistList = artistRepository.findAll(paging).getContent();
         }
         artistList.forEach(artist -> list.add(artistEntityOpenApiMapper.artistToArtistResponseOpenApi(artist)));
@@ -95,7 +97,7 @@ public class ArtistServiceImpl implements ArtistService {
     public ArtistPagedResponseOpenApi findAllPaged(final Integer page, final Integer size) {
         List<ArtistResponseOpenApi> list = new ArrayList<>();
         ArtistPagedResponseOpenApi responseOpenApi = new ArtistPagedResponseOpenApi();
-        Pageable paging = PageRequest.of(page, size);
+        Pageable paging = PageRequest.of(page, size, Sort.by(Sort.Order.asc(Artist_.NAME)));
         Page<Artist> artistPage = artistRepository.findAll(paging);
         artistPage.getContent().forEach(artist -> list.add(artistEntityOpenApiMapper.artistToArtistResponseOpenApi(artist)));
         responseOpenApi.setTotalElements(artistPage.getTotalElements());
