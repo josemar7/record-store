@@ -179,6 +179,9 @@
                                 <delegatePattern>true</delegatePattern>
                                 <interfaceOnly>true</interfaceOnly>
                             </configOptions>
+                            <typeMappings>
+                                <typeMapping>date-legacy=java.time.LocalDateTime</typeMapping>
+                            </typeMappings>
                         </configuration>
                     </execution>
                 </executions>

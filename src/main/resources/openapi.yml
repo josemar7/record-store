@@ -437,8 +437,75 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FormatResponseOpenApi'
+  /orders/new:
+    post:
+      summary: add new order
+      operationId: newOrder
+      requestBody:
+        description: order to be added
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderResponseOpenApi'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponseOpenApi'
+  /orders/all:
+    get:
+      summary: get all orders paged
+      operationId: getAllOrders
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            format: int32
+          required: false
+          description: page number
+        - in: query
+          name: size
+          schema:
+            type: integer
+            format: int32
+          required: false
+          description: page size
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderPagedResponseOpenApi'
 components:
   schemas:
+    OrderResponseOpenApi:
+      type: object
+      properties:
+        id:
+          type: integer
+        user:
+          type: string
+        date:
+          type: string
+          format: date-legacy
+        ordersLines:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderLineResponseOpenApi'
+    OrderLineResponseOpenApi:
+      type: object
+      properties:
+        id:
+          type: integer
+        record:
+          $ref: '#/components/schemas/RecordResponseOpenApi'
+        units:
+          type: integer
     RecordResponseOpenApi:
       type: object
       properties:
@@ -508,6 +575,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RecordResponseOpenApi'
+        totalPages:
+          type: integer
+        totalElements:
+          type: integer
+          format: int64
+    OrderPagedResponseOpenApi:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderResponseOpenApi'
         totalPages:
           type: integer
         totalElements:

@@ -29,12 +29,6 @@ public class RecordRepositoryImpl implements RecordCustomRepository {
     private PaginationManagement paginationManagement;
 
     @Override
-    public List<Record> findFilteredRecords(final String name, final String artist, final String format, final String style) {
-        CriteriaQuery<Record> cq = getRecordCriteriaQuery(name, artist, format, style);
-        return entityManager.createQuery(cq).getResultList();
-    }
-
-    @Override
     public Page<Record> findFilteredRecords(String name, String artist, String format, String style, Pageable pageable) {
         CriteriaQuery<Record> cq = getRecordCriteriaQuery(name, artist, format, style);
         return paginationManagement.findAll(cq, pageable);
