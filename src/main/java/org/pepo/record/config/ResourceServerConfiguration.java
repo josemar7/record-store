@@ -51,6 +51,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 //                .antMatchers(HttpMethod.PUT, ROOT_PATTERN).access("#oauth2.hasScope('write')")
 //                .antMatchers(HttpMethod.DELETE, ROOT_PATTERN).access("#oauth2.hasScope('write')")
 //                .antMatchers(HttpMethod.GET, "/artist/all").permitAll()
+                .antMatchers(HttpMethod.GET, "/orders/*").authenticated()
                 .antMatchers(HttpMethod.GET, "**").permitAll()
                 .antMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
                 .anyRequest().authenticated();

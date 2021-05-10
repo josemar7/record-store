@@ -437,10 +437,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FormatResponseOpenApi'
-  /orders/new:
+  /orders/{user}:
     post:
       summary: add new order
       operationId: newOrder
+      parameters:
+        - in: path
+          name: user
+          schema:
+            type: string
+          required: true
+          description: user name
       requestBody:
         description: order to be added
         content:
@@ -455,11 +462,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrderResponseOpenApi'
-  /orders/all:
     get:
       summary: get all orders paged
       operationId: getAllOrders
       parameters:
+        - in: path
+          name: user
+          schema:
+            type: string
+          required: true
+          description: user name
         - in: query
           name: page
           schema:

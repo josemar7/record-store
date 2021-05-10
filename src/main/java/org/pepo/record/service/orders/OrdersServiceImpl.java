@@ -34,11 +34,11 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public OrderPagedResponseOpenApi findAll(final Integer page, final Integer size) {
+    public OrderPagedResponseOpenApi findAll(final Integer page, final Integer size, final String user) {
         List<OrderResponseOpenApi> list = new ArrayList<>();
         OrderPagedResponseOpenApi responseOpenApi = new OrderPagedResponseOpenApi();
         Pageable paging = PageRequest.of(page, size);
-        Page<Orders> orderPage = ordersRepository.findAll(paging);
+        Page<Orders> orderPage = ordersRepository.findByUser(paging, user);
         orderPage.getContent().forEach(order -> list.add(ordersEntityOpenApiMapper.ordersToOrderResponseOpenApi(order)));
         responseOpenApi.setTotalElements(orderPage.getTotalElements());
         responseOpenApi.setTotalPages(orderPage.getTotalPages());
