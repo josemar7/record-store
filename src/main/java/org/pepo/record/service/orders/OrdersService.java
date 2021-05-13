@@ -9,4 +9,6 @@ public interface OrdersService {
     OrderResponseOpenApi save(Orders orders);
 
     OrderPagedResponseOpenApi findAll(Integer page, Integer size, String user);
+
+    OrderResponseOpenApi findById(Integer orderId);
 }

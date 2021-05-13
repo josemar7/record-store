@@ -57,4 +57,10 @@ public class OrdersServiceImpl implements OrdersService {
         responseOpenApi.setResult(list);
         return responseOpenApi;
     }
+
+    @Override
+    public OrderResponseOpenApi findById(final Integer orderId) {
+        Orders order = ordersRepository.findById(orderId).orElse(null);
+        return ordersEntityOpenApiMapper.ordersToOrderResponseOpenApi(order);
+    }
 }

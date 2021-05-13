@@ -27,4 +27,9 @@ public class OrdersController implements OrdersApi {
     public ResponseEntity<OrderPagedResponseOpenApi> getAllOrders(final String user, final Integer page, final Integer size) {
         return ResponseEntity.ok(ordersService.findAll(page, size, user));
     }
+
+    @Override
+    public ResponseEntity<OrderResponseOpenApi> getOrderById(final Integer orderId) {
+        return ResponseEntity.ok(ordersService.findById(orderId));
+    }
 }

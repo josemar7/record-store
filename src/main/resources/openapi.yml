@@ -493,6 +493,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrderPagedResponseOpenApi'
+  /orders/one/{orderId}:
+    get:
+      summary: get order by id
+      operationId: getOrderById
+      parameters:
+        - in: path
+          name: orderId
+          schema:
+            type: integer
+          required: true
+          description: order id
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponseOpenApi'
+
 components:
   schemas:
     OrderResponseOpenApi:
