@@ -60,7 +60,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://record-store-react-front.herokuapp.com"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST","DELETE","PUT"));
         configuration.setAllowCredentials(true);
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
